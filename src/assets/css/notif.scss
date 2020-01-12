@@ -1,0 +1,30 @@
+$width : 300px;
+.notif {
+  display: inline-block;
+  position: fixed;
+  color: #fff;
+  min-width: $width;
+  max-width: 80%;
+  padding: 1rem;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 5px;
+  font-size: 90%;
+  transition: visibility 0.3s, transform 0.3s;
+  visibility: hidden;
+  opacity: .9;
+  will-change: transform;
+  z-index: 1000;
+}
+.notif-top{
+  visibility: hidden;
+  transform: translateY(-500px);
+}
+.notif-bottom{
+  visibility: hidden;
+  transform: translateY(500px);
+}
+.notif--visible {
+  visibility: visible;
+  transform: none;
+}

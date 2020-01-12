@@ -1,0 +1,173 @@
+/* LOADER */
+.loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 9998;
+  text-align: center;
+}
+.plane-container {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+.loading{
+  -webkit-animation: rjload 2s -5s infinite;
+  animation: rjload 2s -5s infinite;
+}
+@-webkit-keyframes rjload { 0% {opacity: 1;} 50% {opacity: 0.3;} }
+@-o-keyframes rjload { 0% {opacity: 1;} 50% {opacity: 0.3;} }
+@-moz-keyframes rjload { 0% {opacity: 1;} 50% {opacity: 0.3;} }
+@keyframes rjload { 0% {opacity: 1;} 50% {opacity: 0.3;} }
+/* INPUT */
+.reja-input-icon *:first-child{
+  color: #aaa;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  border: 1px dashed #bbb;
+  margin: 5px;
+  border-radius: 50px;
+}
+.reja-input-icon *:first-child::before{
+  margin: auto;
+}
+  .reja-input-icon *:first-child::after{
+  margin: auto;
+}
+.reja-input-icon .form-control::placeholder{ font-weight: 300; }
+.reja-input-icon .form-control{
+  font-weight: normal;
+  padding: 8px;
+  padding-left: 40px !important;
+  transition: none;
+  border-color: rgba(0,0,0,0.1);
+}
+.reja-input-icon .form-control:hover{
+  background-color: rgba(255, 172, 200, 0.1);
+  border-color: #ffc7da;
+}
+.reja-input-icon .form-control:focus{
+  cursor: auto;
+  border-color: rgba(0,0,0,0.1) !important;
+  background-color: none !important;
+}
+/* INPUT APPEND */
+.reja-input-icon-append *:last-child{
+  color: #aaa;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  border: 1px dashed #bbb;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 50px;
+}
+.reja-input-icon-append *:last-child::before{
+  content: "";
+  margin-left: auto;
+}
+.reja-input-icon-append *:last-child::after{
+  content: "";
+  margin-right: auto;
+}
+.reja-input-icon-append .form-control::placeholder{ font-weight: 300; }
+.reja-input-icon-append .form-control{
+  font-weight: normal;
+  padding: 8px 40px 8px 15px !important;
+  transition: none;
+  cursor: pointer;
+  border-color: rgba(0,0,0,0.1);
+}
+.reja-input-icon-append .form-control:hover{
+  background-color: rgba(255, 172, 200, 0.1);
+  border-color: #ffc7da;
+}
+.reja-input-icon-append .form-control:focus{
+  cursor: auto;
+  border-color: rgba(0,0,0,0.1) !important;
+  background-color: none !important;
+}
+.truncate{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+/* SLIDER */
+.lSPager{
+  margin-top: 0 !important;
+}
+.lSSlideOuter .lSPager.lSpg>li a {
+  background-color: #ddd;
+  width: 6px;
+  height: 6px;
+}
+.lSSlideOuter .lSPager.lSpg>li.active a, .lSSlideOuter .lSPager.lSpg>li:hover a{
+  background-color: #fcc7cf;
+}
+.lSSlideOuter .lSPager.lSpg>li{
+  padding: 0 2px;
+}
+.lSSlideOuter .lSPager.lSpg{
+  position: absolute;
+  left: calc(50% - 10px);
+}
+.timeline:before{
+  width: 1px;
+  background: #ddd;
+  left: 15px;
+}
+.timeline>li{
+  margin: 0;
+}
+.chat-widget .by-me .chat-content:before{
+  top: 20px;
+}
+.chat-widget{
+  padding: 0;
+}
+.chat-widget ul li{
+  margin: 10px 0;
+}
+.nav-material>li>.nav-link.active{
+  color: #000;
+  font-weight: 400;
+  border-bottom: 3px solid #fcc7cf;
+}
+.nav-material>li>a::after{
+  background: none;
+}
+.table-menu-bottom td img{
+  height: 25px !important;
+}
+.breadcrumb{
+  background-color: #fff;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.05);
+}
