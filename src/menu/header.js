@@ -16,7 +16,7 @@ class header  extends React.Component {
           <div className="relative">
             <div className="d-flex align-items-center">
               <div>
-                <span className="paper-nav-toggles toggle-canvas pp-nav-toggles"> <i className="la la-bars toggle-side text-dark la-lg" /> </span>
+                <span className="paper-nav-toggles toggle-canvas pp-nav-toggles"> <i className="la la-bars toggle-side text-primary la-lg" /> </span>
               </div>
             </div>
           </div>

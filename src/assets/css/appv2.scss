@@ -1,17 +1,28 @@
+// Font
+@import url("../fonts/montserrat/Montserrat.css");
 $success : #58d6ad;
 $success-light : #f2fffb;
+$success-g : linear-gradient(to top, $success, #3b9278);
 $info : #3b95ff;
 $info-light : #f2f8ff;
+$info-g : linear-gradient(to top, $info, #4384d2);
 $warning : #ff7600;
 $warning-light : #feffde;
+$warning-g : linear-gradient(to top, $warning, #bb5905);
 $danger : #f14c4c;
 $danger-light : #fff5f5;
+$danger-g : linear-gradient(to top, $danger, #b33838);
 $light : #f9f9f9;
+$light-g : linear-gradient(to top, $light, #eeeeee);
 $gray : #ccc;
+$gray-g : linear-gradient(to top, $gray, #999999);
 $secondary : #555;
+$secondary-g : linear-gradient(to top, $secondary, #333333);
 $dark : #000;
+$dark-g : linear-gradient(to top, $dark, $secondary);
 $primary : #507cbe;
 $primary-light : #f1f6ff;
+$primary-g : linear-gradient(to top, $primary, #2b4873);
 // SIDEBAR
 $sidebar-width : 200px;
 *,
@@ -45,7 +56,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #ecf0f5;
-  font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font: 400 1rem/1.5 Montserrat, sans-serif;
 }
 [tabindex="-1"]:focus, *:focus {
   outline: 0!important
@@ -186,7 +197,13 @@ textarea {
 }
 button,
 input {
+  font-family: inherit;
+  font-weight: inherit !important;
   overflow: visible
+}
+textarea {
+  font-family: inherit;
+  font-weight: inherit !important;
 }
 button,
 select {
@@ -2264,7 +2281,7 @@ fieldset:disabled a.btn {
 .btn-group-sm>.btn,
 .btn-sm {
   padding: .25rem .5rem;
-  font-size: .85rem;
+  font-size: .875rem;
   line-height: 1.5;
   border-radius: .2rem
 }
@@ -4200,7 +4217,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Montserrat, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -4354,7 +4371,7 @@ button.close {
   line-break: auto;
   word-wrap: break-word;
   opacity: 0;
-  font: 400 .875rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+  font: 400 .875rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Montserrat, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
 .tooltip.show {
   opacity: .9
@@ -7086,90 +7103,6 @@ a.text-dark:hover {
     border-color: #eee
   }
 }
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 100;
-  src: url(../fonts/roboto/roboto-v16-latin-100.eot);
-  src: local("Roboto Thin"), local(Roboto-Thin), url(../fonts/roboto/roboto-v16-latin-100.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-100.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-100.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-100.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-100.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 100;
-  src: url(../fonts/roboto/roboto-v16-latin-100italic.eot);
-  src: local("Roboto Thin Italic"), local(Roboto-ThinItalic), url(../fonts/roboto/roboto-v16-latin-100italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-100italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-100italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-100italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-100italic.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 300;
-  src: url(../fonts/roboto/roboto-v16-latin-300.eot);
-  src: local("Roboto Light"), local(Roboto-Light), url(../fonts/roboto/roboto-v16-latin-300.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-300.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-300.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-300.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-300.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 300;
-  src: url(../fonts/roboto/roboto-v16-latin-300italic.eot);
-  src: local("Roboto Light Italic"), local(Roboto-LightItalic), url(../fonts/roboto/roboto-v16-latin-300italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-300italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-300italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-300italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-300italic.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 400;
-  src: url(../fonts/roboto/roboto-v16-latin-regular.eot);
-  src: local(Roboto), local(Roboto-Regular), url(../fonts/roboto/roboto-v16-latin-regular.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-regular.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-regular.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-regular.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-regular.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 400;
-  src: url(../fonts/roboto/roboto-v16-latin-italic.eot);
-  src: local("Roboto Italic"), local(Roboto-Italic), url(../fonts/roboto/roboto-v16-latin-italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-italic.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  src: url(../fonts/roboto/roboto-v16-latin-500.eot);
-  src: local("Roboto Medium"), local(Roboto-Medium), url(../fonts/roboto/roboto-v16-latin-500.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-500.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-500.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-500.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-500.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 500;
-  src: url(../fonts/roboto/roboto-v16-latin-500italic.eot);
-  src: local("Roboto Medium Italic"), local(Roboto-MediumItalic), url(../fonts/roboto/roboto-v16-latin-500italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-500italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-500italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-500italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-500italic.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 700;
-  src: url(../fonts/roboto/roboto-v16-latin-700.eot);
-  src: local("Roboto Bold"), local(Roboto-Bold), url(../fonts/roboto/roboto-v16-latin-700.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-700.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-700.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-700.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-700.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 700;
-  src: url(../fonts/roboto/roboto-v16-latin-700italic.eot);
-  src: local("Roboto Bold Italic"), local(Roboto-BoldItalic), url(../fonts/roboto/roboto-v16-latin-700italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-700italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-700italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-700italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-700italic.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 900;
-  src: url(../fonts/roboto/roboto-v16-latin-900.eot);
-  src: local("Roboto Black"), local(Roboto-Black), url(../fonts/roboto/roboto-v16-latin-900.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-900.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-900.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-900.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-900.svg#Roboto) format("svg")
-}
-@font-face {
-  font-family: Roboto;
-  font-style: italic;
-  font-weight: 900;
-  src: url(../fonts/roboto/roboto-v16-latin-900italic.eot);
-  src: local("Roboto #000 Italic"), local(Roboto-BlackItalic), url(../fonts/roboto/roboto-v16-latin-900italic.eot?#iefix) format("embedded-opentype"), url(../fonts/roboto/roboto-v16-latin-900italic.woff2) format("woff2"), url(../fonts/roboto/roboto-v16-latin-900italic.woff) format("woff"), url(../fonts/roboto/roboto-v16-latin-900italic.ttf) format("truetype"), url(../fonts/roboto/roboto-v16-latin-900italic.svg#Roboto) format("svg")
-}
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -9672,7 +9605,7 @@ body {
   height: 100%;
   letter-spacing: .2px;
   padding-right: 0 !important;
-  // font: 300 14px/1.5 Roboto, sans-serif, serif
+  // font: 300 14px/1.5 Montserrat, sans-serif, serif
 }
 a {
   color: $primary
@@ -9919,152 +9852,130 @@ ul li i.la {
 .fixed {
   position: fixed!important
 }
-.bg-primary-light,
-.toast-primary-light {
+.bg-primary-g, .toast-primary-g {
+  background-image: $primary-g !important
+}
+.bg-danger-g, .toast-danger-g {
+  background-image: $danger-g !important
+}
+.bg-warning-g, .toast-warning-g {
+  background-image: $warning-g !important
+}
+.bg-success-g, .toast-success-g {
+  background-image: $success-g !important
+}
+.bg-info-g, .toast-info-g {
+  background-image: $info-g !important
+}
+.bg-primary-light, .toast-primary-light {
   background-color: $primary-light !important
 }
-.bg-danger-light,
-.toast-danger-light {
+.bg-danger-light, .toast-danger-light {
   background-color: $danger-light !important
 }
-.bg-warning-light,
-.toast-warning-light {
+.bg-warning-light, .toast-warning-light {
   background-color: $warning-light !important
 }
-.bg-success-light,
-.toast-success-light {
+.bg-success-light, .toast-success-light {
   background-color: $success-light !important
 }
-.bg-info-light,
-.toast-info-light {
+.bg-info-light, .toast-info-light {
   background-color: $info-light !important
 }
-.bg-primary,
-.toast-primary {
+.bg-primary, .toast-primary {
   background-color: $primary !important
 }
-.bg-danger,
-.toast-danger {
+.bg-danger, .toast-danger {
   background-color: $danger !important
 }
-.bg-warning,
-.toast-warning {
+.bg-warning, .toast-warning {
   background-color: $warning !important
 }
-.bg-success,
-.toast-success {
+.bg-success, .toast-success {
   background-color: $success !important
 }
-.bg-info,
-.toast-info {
+.bg-info, .toast-info {
   background-color: $info !important
 }
-.bg-default,
-.toast-default {
+.bg-default, .toast-default {
   background-color: #2bbbad !important
 }
-.bg-secondary,
-.toast-secondary {
+.bg-secondary, .toast-secondary {
   background-color: #a6c !important
 }
-.bg-elegant,
-.toast-elegant {
+.bg-elegant, .toast-elegant {
   background-color: #2e2e2e !important
 }
-.bg-unique,
-.toast-unique {
+.bg-unique, .toast-unique {
   background-color: #880e4f !important
 }
-.bg-dark-green,
-.toast-dark-green {
+.bg-dark-green, .toast-dark-green {
   background-color: #388e3c !important
 }
-.bg-mdb-color,
-.toast-mdb-color {
+.bg-mdb-color, .toast-mdb-color {
   background-color: #59698d !important
 }
-.bg-red,
-.toast-red {
+.bg-red, .toast-red {
   background-color: #d32f2f !important
 }
-.bg-pink,
-.toast-pink {
+.bg-pink, .toast-pink {
   background-color: $primary !important
 }
-.bg-purple,
-.toast-purple {
+.bg-purple, .toast-purple {
   background-color: #8e24aa !important
 }
-.bg-deep-purple,
-.toast-deep-purple {
+.bg-deep-purple, .toast-deep-purple {
   background-color: #512da8 !important
 }
-.bg-indigo,
-.toast-indigo {
+.bg-indigo, .toast-indigo {
   background-color: #3f51b5 !important
 }
-.bg-blue,
-.toast-blue {
+.bg-blue, .toast-blue {
   background-color: #1976d2 !important
 }
-.bg-light-blue,
-.toast-light-blue {
+.bg-light-blue, .toast-light-blue {
   background-color: #82b1ff !important
 }
-.bg-cyan,
-.toast-cyan {
+.bg-cyan, .toast-cyan {
   background-color: #00bcd4 !important
 }
-.bg-teal,
-.toast-teal {
+.bg-teal, .toast-teal {
   background-color: #00796b !important
 }
-.bg-green,
-.toast-green {
+.bg-green, .toast-green {
   background-color: #388e3c !important
 }
-.bg-light-green,
-.toast-light-green {
+.bg-light-green, .toast-light-green {
   background-color: #8bc34a !important
 }
-.bg-lime,
-.toast-lime {
+.bg-lime, .toast-lime {
   background-color: #afb42b !important
 }
-.bg-yellow,
-.toast-yellow {
+.bg-yellow, .toast-yellow {
   background-color: #fbc02d !important
 }
-.bg-amber,
-.toast-amber {
+.bg-amber, .toast-amber {
   background-color: #ffa000 !important
 }
-.bg-orange,
-.toast-orange {
+.bg-orange, .toast-orange {
   background-color: #f57c00 !important
 }
-.bg-deep-orange,
-.toast-deep-orange {
+.bg-deep-orange, .toast-deep-orange {
   background-color: #ff7043 !important
 }
-.bg-brown,
-.toast-brown {
+.bg-brown, .toast-brown {
   background-color: #795548 !important
 }
-.bg-grey,
-.toast-grey {
+.bg-grey, .toast-grey {
   background-color: #616161 !important
 }
-.bg-blue-grey,
-.toast-blue-grey {
+.bg-blue-grey, .toast-blue-grey {
   background-color: #78909c !important
 }
-.bg-white,
-.toast-white {
+.bg-white, .toast-white {
   background-color: #fff !important
 }
-.bg-black,
-.toast-black {
+.bg-black, .toast-black {
   background-color: #000 !important
 }
 .avatar,
@@ -10632,7 +10543,7 @@ a.btn-fab {
   border-radius: 50%
 }
 .user-panel {
-  padding: 40px 20px
+  background: rgba(255,255,255,0.1);
 }
 .user-panel .user_avatar {
   margin-right: 10px
@@ -10656,15 +10567,17 @@ a.btn-fab {
   padding-right: .25rem;
 }
 .offcanvas .sidebar-menu li a {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   padding-top: .35rem;
   padding-bottom: .35rem;
   margin-bottom: 3px;
 }
 .offcanvas .sidebar-menu li a.active,
 .offcanvas .sidebar-menu li a:hover {
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
-  background-color: $light
+  // border-top-right-radius: 50px;
+  // border-bottom-right-radius: 50px;
+  background: rgba(255,255,255,.1);
 }
 .offcanvas .sidebar-menu li i {
   padding-left: .25rem;
@@ -10708,7 +10621,8 @@ a.btn-fab {
 .sidebar-menu {
   list-style: outside none none;
   margin: 0;
-  padding: 0;
+  padding-left: .5rem;
+  // padding: 0;
   overflow: hidden;
   white-space: nowrap
 }
@@ -10720,9 +10634,9 @@ a.btn-fab {
 .sidebar-menu>li>a {
   display: block;
   padding: 10px 5px 10px 15px;
-  color: #000;
+  color: #fff;
   font-size: 8pt;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: .5px
 }
 .sidebar-menu>li .label {
@@ -10768,7 +10682,7 @@ a.btn-fab {
   display: none;
   list-style: outside none none;
   margin: 0;
-  padding: 0 0 0 5px
+  padding: 0 0 0 0
 }
 .sidebar-menu .treeview-menu .treeview-menu {
   padding-left: 20px
@@ -10779,10 +10693,12 @@ a.btn-fab {
 .sidebar-menu .treeview-menu>li>a {
   display: block;
   font-size: 8pt;
-  font-weight: 600;
+  font-weight: 500;
   padding: 5px 5px 5px 20px;
-  margin-right: 10px;
-  color: #000
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  // margin-right: 10px;
+  color: #fff
 }
 .sidebar-menu .treeview-menu>li>a>.fa,
 .sidebar-menu .treeview-menu>li>a>.glyphicon,
@@ -10926,7 +10842,7 @@ a.btn-fab {
   position: absolute;
   width: $sidebar-width;
   z-index: 1000;
-  background: #fff;
+  background: $primary-g;
   -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
   -moz-transition: -moz-transform .3s ease-in-out, width .3s ease-in-out;
   -o-transition: -o-transform .3s ease-in-out, width .3s ease-in-out;

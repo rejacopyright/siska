@@ -80,7 +80,7 @@ class Materi extends React.Component {
               </div>
               <div className="card-body p-0" ref={i => this.form = i}>
                 <div className="row">
-                  <Editor value={this.state.materi.materi} ref={i => this.modul = i} divClass="col" placeholder={PlaceModul()} />
+                  <Editor value={this.state.materi.materi || ''} ref={i => this.modul = i} divClass="col" placeholder={PlaceModul()} />
                 </div>
               </div>
             </div>

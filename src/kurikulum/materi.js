@@ -5,6 +5,7 @@ import axios from 'axios';
 import con from '../api/connection';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Modal from '../misc/modal';
+import Pop from '../misc/popover';
 
 class Materi extends React.Component {
   constructor(props){
@@ -109,16 +110,16 @@ class Materi extends React.Component {
             <div className="card-body p-0">
               <div className="table-responsive">
                 <Scrollbars style={{ height: 50+'vh' }} autoHide onScroll={this.scroll.bind(this)}>
-                  <table className="table table-hover mb-0" id="table-materi">
+                  <table className="table table-hover table-nowrap mb-0" id="table-materi">
                     <thead>
                       <tr>
                         <th className="text-center sticky bg-white shadow-xs">No.</th>
-                        <th className="sticky bg-white shadow-xs">Kelas</th>
-                        <th className="sticky bg-white shadow-xs">Semester</th>
-                        <th className="sticky bg-white shadow-xs">Mata Pelajaran</th>
-                        <th className="sticky bg-white shadow-xs">Standar Kompetensi</th>
-                        <th className="sticky bg-white shadow-xs">Standar Kompetensi</th>
-                        <th className="sticky bg-white shadow-xs" colSpan={2}>Materi</th>
+                        <th className="sticky bg-white f-9 shadow-xs">Materi</th>
+                        <th className="sticky bg-white f-9 shadow-xs">Kelas</th>
+                        <th className="sticky bg-white f-9 shadow-xs">Semester</th>
+                        <th className="sticky bg-white f-9 shadow-xs">Mata Pelajaran</th>
+                        <th className="sticky bg-white f-9 shadow-xs">SK</th>
+                        <th className="sticky bg-white f-9 shadow-xs" colSpan={2}>KD</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -127,14 +128,14 @@ class Materi extends React.Component {
                           (r, index) => (
                             <tr key={index}>
                               <td className="text-center font-bold">{index+1}.</td>
-                              <td className="bold text-nowrap">{r.kelas}</td>
-                              <td className="bold text-nowrap text-capitalize">{r.semester}</td>
-                              <td className="bold text-nowrap">{r.mapel}</td>
-                              <td className="bold">{r.sk}</td>
-                              <td className="bold">{r.kd}</td>
-                              <td className="bold">{r.nama}</td>
+                              <td className="bolder"><Pop title="Standar Kompetensi" content={r.nama} length="3"/></td>
+                              <td className="f-8 bolder text-nowrap">{r.kelas}</td>
+                              <td className="f-8 bolder text-nowrap text-capitalize">{r.semester}</td>
+                              <td className="f-8 bolder text-nowrap">{r.mapel}</td>
+                              <td className="f-8 bolder"><Pop title="Standar Kompetensi" content={r.sk} length="3"/></td>
+                              <td className="f-8 bolder"><Pop title="Standar Kompetensi" content={r.kd} length="3"/></td>
                               <td className="text-right text-nowrap">
-                                <Link to={`/kurikulum/materi/modul/${(r.materi_id)}`} className="btn-fab btn-fab-xs btn-info-light mr-2"><i className="la la-book-open"></i></Link>
+                                <Link to={`/kurikulum/materi/modul/${(r.materi_id)}`} className={`btn-fab btn-fab-xs btn-${r.materi ? 'info-light' : 'light'} text-muted mr-2`}><i className="la la-book-open"></i></Link>
                                 <Link to={`/kurikulum/materi/edit/${(r.materi_id)}`} className="btn-fab btn-fab-xs btn-warning-light mr-2"><i className="la la-pen"></i></Link>
                                 <span className="btn-fab btn-fab-xs btn-danger-light" data-toggle="modal" data-target="#delete-mdl" onClick={() => this.setState({materi_self:r})}><i className="la la-trash"></i></span>
                               </td>
