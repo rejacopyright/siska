@@ -62,6 +62,12 @@ class side extends React.Component {
               <li><Link to="/kurikulum/rpp"><i className="la la-book-open text-white la-lg" />RPP</Link> </li>
               <li><Link to="/kurikulum/materi"><i className="la la-pencil-alt text-white la-lg" />Materi</Link> </li>
             </ul>
+            {/* MAPEL */}
+            <div className="sidebar-title f-8 bold text-white p-2 position-relative pointer" data-toggle="collapse" href="#mapel-header" aria-expanded="false"><i className="la la-school la-lg pr-2" />MAPEL <i className="la la-angle-right right right-5 toggle-1" /></div>
+            <ul className="sidebar-menu collapse" id="mapel-header">
+              <li><Link to='/mapel/pengajar'><i className="la la-user-graduate la-lg" />Pengajar</Link> </li>
+              <li><Link to='/mapel/jadwal'><i className="la la-calendar la-lg" />Jadwal</Link> </li>
+            </ul>
             {/* SISWA */}
             <div className="sidebar-title f-8 bold text-white p-2 position-relative pointer" data-toggle="collapse" href="#siswa-header" aria-expanded="false"><i className="la la-user-tie la-lg pr-2" />SISWA <i className="la la-angle-right right right-5 toggle-1" /></div>
             <ul className="sidebar-menu collapse" id="siswa-header">
@@ -92,7 +98,6 @@ class side extends React.Component {
                 <ul className="treeview-menu">
                   <li><Link to='/sdm/jabatan'><i className="la la-briefcase la-lg" />Jabatan</Link> </li>
                   <li><Link to='/sdm/user'><i className="la la-user la-lg" />User</Link> </li>
-                  <li><Link to='/sdm/pengajar'><i className="la la-user-tie la-lg" />Pengajar</Link> </li>
                 </ul>
               </li>
               <li><Link to="/kurikulum/mapel"><i className="la la-book-open text-white la-lg" />Mata Pelajaran</Link> </li>

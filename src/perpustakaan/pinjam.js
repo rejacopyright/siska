@@ -18,12 +18,14 @@ function Status(props){
     case 2:
       return <span className="badge badge-light border border-gray f-8 bolder py-1 px-2 badge-pill">Dipinjam</span>;
     case 3:
-      return <span className="badge badge-info-light border border-info f-8 bolder py-1 px-2 badge-pill">Dikembalikan</span>;
+      return <span className="badge badge-success-light border border-success f-8 bolder py-1 px-2 badge-pill">Dikembalikan</span>;
     case 4:
       return <span className="badge badge-warning-light border border-warning f-8 bolder py-1 px-2 badge-pill">Rusak</span>;
     case 5:
       return <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Hilang</span>;
     case 6:
+      return <span className="badge badge-info-light border border-info f-8 bolder py-1 px-2 badge-pill">Diperpanjang</span>;
+    case 7:
       return <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Expired</span>;
     default:
     return <i className="la la-times-circle text-danger" />;
@@ -34,10 +36,10 @@ class Pinjam extends React.Component {
     super(props);
     this._isMounted = false;
     this.state = {
-      pinjam:{siswa:{},buku:{}},
+      pinjam:{siswa:{},buku:{},durasi:{}},
       pinjam_page:1,
       pinjam_search:'',
-      pinjam_self:{siswa:{},buku:{}},
+      pinjam_self:{siswa:{},buku:{},durasi:{}},
       loading:true,
       notifBg:'success',
       notifMsg:''
@@ -93,6 +95,33 @@ class Pinjam extends React.Component {
       document.getElementById('table-pinjam').parentElement.scrollTo(0,0);
     });
   }
+  extend(e){
+    e.preventDefault();
+    const q = {pinjam_id:this.state.pinjam_self.pinjam_id};
+    q['tgl_dikembalikan'] = this.extendForm.querySelector('input[name="tgl_dikembalikan"]').value;
+    axios.post(con.api+'/perpustakaan/pinjam/extend', q, {headers:con.headers})
+    .then(res => {
+      this.setState({
+        pinjam:res.data.pinjam,
+        pinjam_page:1,
+        notifBg:'success',
+        notifMsg:'Pinjaman berhasil diperpanjang'
+      }, () => document.querySelector('.notif-show').click());
+      document.getElementById('table-pinjam').parentElement.scrollTo(0,0);
+    });
+  }
+  undoExtend(q){
+    axios.post(con.api+'/perpustakaan/pinjam/extend/undo', q, {headers:con.headers})
+    .then(res => {
+      this.setState({
+        pinjam:res.data.pinjam,
+        pinjam_page:1,
+        notifBg:'success',
+        notifMsg:'Berhasil mengurungkan perpanjangan'
+      }, () => document.querySelector('.notif-show').click());
+      document.getElementById('table-pinjam').parentElement.scrollTo(0,0);
+    });
+  }
   delete(e){
     let q = {pinjam_id: this.state.pinjam_self.pinjam_id};
     axios.post(con.api+'/perpustakaan/pinjam/delete', q, {headers:con.headers})
@@ -122,8 +151,8 @@ class Pinjam extends React.Component {
       return (
         <div ref={i => this.addForm = i}>
           <div className="row">
-            <Select name="siswa_id" title="Siswa" className="col-md" error="*Siswa harus di isi" url='siswa/select' placeholder="Pilih Siswa" />
-            <Select name="perpustakaan_id" title="Buku" className="col-md" error="*Buku harus di isi" url='perpustakaan/select' placeholder="Pilih Buku" />
+            <Select name="siswa_id" title="Siswa" className="col-md mb-2" error="*Siswa harus di isi" url='siswa/select' placeholder="Pilih Siswa" />
+            <Select name="perpustakaan_id" title="Buku" className="col-md mb-2" error="*Buku harus di isi" url='perpustakaan/select' placeholder="Pilih Buku" />
             <Text name="keterangan" divClass="col-12 mb-2" title="Keterangan" placeholder="Keterangan Opsional (Tulis jika membutuhkan keterangan)" rows="5" />
           </div>
           <hr className="row my-2"/>
@@ -140,8 +169,8 @@ class Pinjam extends React.Component {
       return (
         <div ref={i => this.editForm = i}>
           <div className="row">
-            <Select name="siswa_id" title="Siswa" className="col-md" error="*Siswa harus di isi" url='siswa/select' placeholder="Pilih Siswa" selected={[this.state.pinjam_self.siswa.siswa_id, this.state.pinjam_self.siswa.nama]} />
-            <Select name="perpustakaan_id" title="Buku" className="col-md" error="*Buku harus di isi" url='perpustakaan/select' placeholder="Pilih Buku" selected={[this.state.pinjam_self.buku.perpustakaan_id, this.state.pinjam_self.buku.judul]} />
+            <Select name="siswa_id" title="Siswa" className="col-md mb-2" error="*Siswa harus di isi" url='siswa/select' placeholder="Pilih Siswa" selected={[this.state.pinjam_self.siswa.siswa_id, this.state.pinjam_self.siswa.nama]} />
+            <Select name="perpustakaan_id" title="Buku" className="col-md mb-2" error="*Buku harus di isi" url='perpustakaan/select' placeholder="Pilih Buku" selected={[this.state.pinjam_self.buku.perpustakaan_id, this.state.pinjam_self.buku.judul]} />
             <Text name="keterangan" divClass="col-12 mb-2" title="Keterangan" placeholder="Keterangan Opsional (Tulis jika membutuhkan keterangan)" rows="5" value={this.state.pinjam_self.keterangan} />
           </div>
           <div className="row align-items-center py-3">
@@ -155,6 +184,25 @@ class Pinjam extends React.Component {
             <div className="col-12 text-right">
               <button className="alert alert-light py-1 px-4 pointer mr-2" data-dismiss="modal"> Tutup </button>
               <button className="alert alert-success py-1 px-4 pointer" onClick={this.edit.bind(this)} data-dismiss="modal"> Update </button>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    const ModalExtend = () => {
+      return (
+        <div ref={i => this.extendForm = i}>
+          <div className="row">
+            <div className="col-12 text-center mb-2">
+              <small className="text-nowrap">Perpanjang Sampai <p className="mb-0 text-info strong f-12">{moment(this.state.pinjam_self.tgl_dikembalikan).add(this.state.pinjam_self.durasi || 1, 'days').format('DD MMMM YYYY')} ?</p></small>
+              <input type="hidden" name="tgl_dikembalikan" defaultValue={moment(this.state.pinjam_self.tgl_dikembalikan).add(this.state.pinjam_self.durasi || 1, 'days').format('YYYY-MM-DD H:mm:ss')} />
+            </div>
+          </div>
+          <hr className="row my-2"/>
+          <div className="row">
+            <div className="col-12 text-right">
+              <button className="alert alert-light py-1 px-4 pointer mr-2" data-dismiss="modal"> Tutup </button>
+              <button className="alert alert-success py-1 px-4 pointer" onClick={this.extend.bind(this)} data-dismiss="modal"> Perpanjang </button>
             </div>
           </div>
         </div>
@@ -236,11 +284,19 @@ class Pinjam extends React.Component {
                               <td className="text-center bold">{index+1}.</td>
                               <td className="bolder f-8">{r.siswa.nis} ({r.siswa.nama})</td>
                               <td className="bolder f-8"><Pop title="Judul Buku" content={r.buku.judul} length="3" /></td>
-                              <td className="bold f-8">{moment(r.tgl_dikembalikan).isBefore(Date.now()) && r.status === 2 ? <Status value={6} /> : <Status value={r.status} />}</td>
+                              <td className="bold f-8">{moment(r.tgl_dikembalikan).isBefore() && (r.status === 2 || r.status === 6) ? <Status value={7} /> : <Status value={r.status} />}</td>
                               <td className="bold f-8">{moment(r.tgl_pinjam).format('Do/MM/YYYY H:mm')}</td>
                               <td className="bold f-8">{moment(r.tgl_dikembalikan).format('Do/MM/YYYY H:mm')}</td>
                               <td className="bold f-8"><Pop title="Keterangan" content={r.keterangan} length="3" /></td>
                               <td className="text-right text-nowrap">
+                                {
+                                  moment(r.tgl_dikembalikan).isAfter() && r.status === 2 ?
+                                  <span className="btn-fab btn-fab-xs btn-info-light mr-2" data-toggle="modal" data-target="#extend-pinjam-mdl" onClick={() => this.setState({pinjam_self:r})}><i className="la la-history"></i></span>
+                                  :
+                                  moment(r.tgl_dikembalikan).isAfter() && r.status === 6 ?
+                                  <span className="btn-fab btn-fab-xs btn-danger-light mr-2" onClick={() => this.undoExtend({pinjam_id:r.pinjam_id, tgl_dikembalikan:moment(r.tgl_dikembalikan).subtract(r.durasi || 1, 'days').format('YYYY-MM-DD H:mm:ss')})}><i className="la la-history"></i></span>
+                                  :''
+                                }
                                 <span className="btn-fab btn-fab-xs btn-warning-light mr-2" data-toggle="modal" data-target="#edit-pinjam-mdl" onClick={() => this.setState({pinjam_self:r})}><i className="la la-pen"></i></span>
                                 <span className="btn-fab btn-fab-xs btn-danger-light" data-toggle="modal" data-target="#delete-pinjam-mdl" onClick={() => this.setState({pinjam_self:r})}><i className="la la-trash"></i></span>
                               </td>
@@ -256,6 +312,7 @@ class Pinjam extends React.Component {
           </div>
           <Modal id='tambah-mdl' size='md' title='Pinjam Buku' body={<ModalAdd />} />
           <Modal id='edit-pinjam-mdl' size='md' title='Edit Pinjam' body={<ModalEdit />} />
+          <Modal id='extend-pinjam-mdl' size='sm' title='Perpanjang Pinjaman' body={<ModalExtend />} />
           <Modal id='delete-pinjam-mdl' size='md' title='Hapus Pinjam' body={<ModalDelete />} />
         </div>
       </div>

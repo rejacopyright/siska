@@ -1234,7 +1234,7 @@ mark {
 }
 .table td, .table th {
   padding: .25rem;
-  font-size: 10pt;
+  font-size: 9pt;
   vertical-align: middle;
   text-align: left
 }
@@ -11075,7 +11075,7 @@ sticky:before {
     border-radius: 20px;
     content: '';
     height: 20px;
-    margin-top: -6px;
+    margin-top: -7px;
     position: absolute;
     opacity: .2;
     transition: all .1s ease-in-out;
@@ -11092,7 +11092,7 @@ sticky:before {
     left: 0;
     margin-top: 0px;
     position: absolute;
-    top: -3px;
+    top: -4px;
     transition: all .1s ease-in-out;
 }
 .material-switch>input[type=checkbox]:checked+label::before, .material-switch>input[type=radio]:checked+label::before {
