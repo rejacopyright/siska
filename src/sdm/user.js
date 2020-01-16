@@ -18,6 +18,7 @@ import moment from 'moment';
 import 'moment/locale/id';
 import DatePicker from 'react-date-picker';
 import Random from 'randomstring';
+import Notif from '../misc/notif';
 
 class User extends React.Component {
   constructor(props){
@@ -30,7 +31,9 @@ class User extends React.Component {
       user_self:{jabatan:{}},
       loading:true,
       avatar:'user.png',
-      base64:''
+      base64:'',
+      notifBg:'success',
+      notifMsg:''
     }
   }
   componentDidMount() {
@@ -61,6 +64,8 @@ class User extends React.Component {
     q['rek_bank'] = this.addForm.querySelector('input[name="rek_bank"]').value;
     q['rek_no'] = this.addForm.querySelector('input[name="rek_no"]').value;
     q['rek_nama'] = this.addForm.querySelector('input[name="rek_nama"]').value;
+    q['tgl_daftar'] = this.addForm.querySelector('input[name="tgl_daftar"]').value;
+    q['expired'] = this.addForm.querySelector('input[name="expired"]').value;
     q['username'] = this.addForm.querySelector('input[name="username"]').value;
     q['password'] = this.addForm.querySelector('input[name="password"]').value;
     q['password_konfirmasi'] = this.addForm.querySelector('input[name="password_konfirmasi"]').value;
@@ -77,11 +82,14 @@ class User extends React.Component {
     }
     let isValid = q.nama && q.jabatan_id && isEmailValid && !isUsernameExist && isPasswordMatchandValid;
     if (isValid) {
-      axios.post(con.api+'/sdm/user/store', q, {headers:con.headers})
-      .then(res => {
-        this.setState({ user:res.data.user, user_page:1 });
-        document.getElementById('table-user').parentElement.scrollTo(0,0);
-    });
+      axios.post(con.api+'/sdm/user/store', q, {headers:con.headers}).then(res => {
+        this.setState({ user:res.data.user, user_page:1, notifBg:'success', notifMsg:'Data User berhasil ditambahkan' }, () => {
+          document.querySelector('.notif-show').click();
+          document.getElementById('table-user').parentElement.scrollTo(0,0);
+        });
+      });
+    }else {
+      this.setState({ notifBg:'danger', notifMsg:'Mohon periksa kembali kelengkapan data yang harus di isi' }, () => document.querySelector('.notif-show').click());
     }
   }
   edit = (e) => {
@@ -101,6 +109,8 @@ class User extends React.Component {
     q['rek_bank'] = this.editForm.querySelector('input[name="rek_bank"]').value;
     q['rek_no'] = this.editForm.querySelector('input[name="rek_no"]').value;
     q['rek_nama'] = this.editForm.querySelector('input[name="rek_nama"]').value;
+    q['tgl_daftar'] = this.editForm.querySelector('input[name="tgl_daftar"]').value;
+    q['expired'] = this.editForm.querySelector('input[name="expired"]').value;
     q['username'] = this.editForm.querySelector('input[name="username"]').value;
     q['password'] = this.editForm.querySelector('input[name="password"]').value;
     q['password_konfirmasi'] = this.editForm.querySelector('input[name="password_konfirmasi"]').value;
@@ -117,11 +127,14 @@ class User extends React.Component {
     }
     let isValid = q.nama && q.jabatan_id && isEmailValid && !isUsernameExist && (isPasswordMatchandValid || !this.editForm.querySelector('input[name="password"]').value);
     if (isValid) {
-      axios.post(con.api+'/sdm/user/update', q, {headers:con.headers})
-      .then(res => {
-        this.setState({ user:res.data.user, user_page:1 });
-        document.getElementById('table-user').parentElement.scrollTo(0,0);
+      axios.post(con.api+'/sdm/user/update', q, {headers:con.headers}).then(res => {
+        this.setState({ user:res.data.user, user_page:1, notifBg:'success', notifMsg:'Data User berhasil diupdate' }, () => {
+          document.querySelector('.notif-show').click();
+          document.getElementById('table-user').parentElement.scrollTo(0,0);
+        });
       });
+    }else {
+      this.setState({ notifBg:'danger', notifMsg:'Mohon periksa kembali kelengkapan data yang harus di isi' }, () => document.querySelector('.notif-show').click());
     }
   }
   delete(e){
@@ -191,9 +204,8 @@ class User extends React.Component {
   render() {
     const ModalAdd = () => {
       const [dateValue, setDateValue] = React.useState(new Date());
-      const onDateChange = (i) => {
-        setDateValue(i);
-      }
+      const [register, setRegister] = React.useState(moment().toDate());
+      const [expired, setExpired] = React.useState(moment().add(1, 'y').toDate());
       return (
         <form ref={i => this.addForm = i} onSubmit={this.add.bind(this)}>
           {/* ROW 1 */}
@@ -201,6 +213,17 @@ class User extends React.Component {
             <Input name="nama" title="Nama Lengkap" divClass="col" error="*Nama lengkap harus di isi" className="text-capitalize" placeholder="Nama Lengkap" />
             <Radio name="gender" setOption={{1:'Laki-laki', 0:'Perempuan'}} checked={1} />
             <Select name="jabatan_id" title="Jabatan" className="col" error="*Jabatan harus di isi" ref={i => this.sel = i} url='sdm/jabatan/select' placeholder="Pilih Jabatan" />
+          </div>
+          {/* MASA JABATAN */}
+          <div className="row">
+            <div className="col-md mb-2">
+              <small className="text-nowrap">Tgl Daftar</small>
+              <DatePicker name="tgl_daftar" onChange={(i) => this._isMounted && setRegister(i)} value={register} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+            </div>
+            <div className="col-md mb-2">
+              <small className="text-nowrap">Tgl Habis Jabatan</small>
+              <DatePicker name="expired" onChange={(i) => this._isMounted && setExpired(i)} value={expired} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+            </div>
           </div>
           {/* ROW 2 */}
           <div className="row mb-2 align-items-center">
@@ -222,7 +245,7 @@ class User extends React.Component {
             <Autocomplete divClass="col-md-9" title="Alamat" api="lokasi" name="alamat" placeholder="Cari alamat" />
             <div className="col-md-3">
               <small className="text-nowrap">Tgl Lahir</small>
-              <DatePicker name="lahir" onChange={(i) => onDateChange(i)} value={dateValue} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+              <DatePicker name="lahir" onChange={(i) => this._isMounted && setDateValue(i)} value={dateValue} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
             </div>
           </div>
           {/* ROW 4 */}
@@ -267,9 +290,8 @@ class User extends React.Component {
     }
     const ModalEdit = () => {
       const [dateValue, setDateValue] = React.useState(new Date(this.state.user_self.lahir ? this.state.user_self.lahir.split(' ').join('T') : true));
-      const onDateChange = (i) => {
-        setDateValue(i);
-      }
+      const [register, setRegister] = React.useState(moment(this.state.user_self.tgl_daftar).toDate());
+      const [expired, setExpired] = React.useState(moment(this.state.user_self.expired).toDate());
       return (
         <form ref={i => this.editForm = i} onSubmit={this.edit.bind(this)}>
           {/* ROW 1 */}
@@ -277,6 +299,17 @@ class User extends React.Component {
             <Input name="nama" value={this.state.user_self.nama || ''} title="Nama Lengkap" divClass="col" error="*Nama lengkap harus di isi" className="text-capitalize" placeholder="Nama Lengkap" />
             <Radio name="gender" setOption={{1:'Laki-laki', 0:'Perempuan'}} checked={this.state.user_self.gender} />
             <Select name="jabatan_id" title="Jabatan" className="col" error="*Jabatan harus di isi" ref={i => this.sel = i} url='sdm/jabatan/select' placeholder="Pilih Jabatan" selected={this.state.user_self.jabatan ? [this.state.user_self.jabatan.jabatan_id, this.state.user_self.jabatan.nama] : false} />
+          </div>
+          {/* MASA JABATAN */}
+          <div className="row">
+            <div className="col-md mb-2">
+              <small className="text-nowrap">Tgl Daftar</small>
+              <DatePicker name="tgl_daftar" onChange={(i) => setRegister(i)} value={register} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+            </div>
+            <div className="col-md mb-2">
+              <small className="text-nowrap">Tgl Habis Jabatan</small>
+              <DatePicker name="expired" onChange={(i) => setExpired(i)} value={expired} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+            </div>
           </div>
           {/* ROW 2 */}
           <div className="row mb-2 align-items-center">
@@ -298,7 +331,7 @@ class User extends React.Component {
             <Autocomplete divClass="col-md-9" title="Alamat" api="lokasi" name="alamat" placeholder="Cari alamat" value={this.state.user_self.alamat || ''} />
             <div className="col-md-3">
               <small className="text-nowrap">Tgl Lahir</small>
-              <DatePicker name="lahir" onChange={(i) => onDateChange(i)} value={dateValue} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
+              <DatePicker name="lahir" onChange={(i) => setDateValue(i)} value={dateValue} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
             </div>
           </div>
           {/* ROW 4 */}
@@ -398,6 +431,7 @@ class User extends React.Component {
     return (
       <div className="row">
         <div className="col-12">
+          <Notif close duration="5000" bg={this.state.notifBg} v="bottom" h="center" message={this.state.notifMsg} />
           <div className="card no-b shadow-lg radius-10 px-2">
             <div className="card-header bg-white b-0 px-3 py-2">
               <div className="row align-items-center">
@@ -421,13 +455,11 @@ class User extends React.Component {
                         <th className="text-center sticky bg-white shadow-xs">No.</th>
                         <th className="sticky bg-white shadow-xs text-center">#</th>
                         <th className="sticky bg-white shadow-xs">Nama</th>
-                        <th className="sticky bg-white shadow-xs">Username</th>
                         <th className="sticky bg-white shadow-xs">Jabatan</th>
-                        <th className="sticky bg-white shadow-xs">NIK</th>
                         <th className="sticky bg-white shadow-xs">Usia</th>
-                        <th className="sticky bg-white shadow-xs">Telp.</th>
                         <th className="sticky bg-white shadow-xs">Whatsapp</th>
                         <th className="sticky bg-white shadow-xs">Email</th>
+                        <th className="sticky bg-white shadow-xs">Masa Jabatan</th>
                         <th className="sticky bg-white shadow-xs text-right">-</th>
                       </tr>
                     </thead>
@@ -447,19 +479,17 @@ class User extends React.Component {
                                 </div>
                               </td>
                               <td className="bold text-nowrap">{r.nama}</td>
-                              <td className="text-nowrap">{r.username}</td>
                               <td className="text-nowrap">
                                 {
                                   r.jabatan ?
-                                  <span className="alert alert-info bold py-0 px-2">{r.jabatan.nama}</span> :
+                                  <span className="alert alert-info bold py-0 f-8 px-2">{r.jabatan.nama}</span> :
                                   <i className="la la-times-circle text-danger" />
                                 }
                               </td>
-                              <td className="text-nowrap f-8">{r.nik || <i className="la la-times-circle text-danger" />}</td>
                               <td className="f-8 bolder text-nowrap">{moment().diff(r.lahir, 'years')} Tahun</td>
-                              <td className="text-nowrap">{r.tlp || <i className="la la-times-circle text-danger" />}</td>
                               <td className="text-nowrap">{r.wa || <i className="la la-times-circle text-danger" />}</td>
-                              <td className="bold f-9 text-nowrap">{r.email}</td>
+                              <td className="bold f-8 text-nowrap">{r.email}</td>
+                              <td className="bold f-8 text-nowrap">{ moment(r.expired).isAfter() ? moment(r.expired).fromNow(true) + ' Lagi' : <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Habis</span> }</td>
                               <td className="text-right text-nowrap">
                                 <span className="btn-fab btn-fab-xs btn-warning-light border border-warning mr-2" data-toggle="modal" data-target="#edit-usr-mdl" onClick={() => this.setState({user_self:r}, () => setTimeout(() => this.editForm.querySelector('input[name="nama"]').focus(), 100))}><i className="la la-pen"></i></span>
                                 <span className="btn-fab btn-fab-xs btn-danger-light border border-danger" data-toggle="modal" data-target="#delete-usr-mdl" onClick={() => this.setState({user_self:r})}><i className="la la-trash"></i></span>

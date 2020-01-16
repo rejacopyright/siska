@@ -4,24 +4,8 @@ import axios from 'axios';
 import con from '../api/connection';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Select from '../misc/select';
-import Checkbox from '../misc/checkbox';
 import Modal from '../misc/modal';
-import moment from 'moment';
-import 'moment/locale/id';
-import DatePicker from 'react-date-picker';
 import Notif from '../misc/notif';
-function Status(props){
-  switch (props.value) {
-    case 0:
-      return <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Nonaktif</span>;
-    case 1:
-      return <span className="badge badge-success-light border border-success f-8 bolder py-1 px-2 badge-pill">Aktif</span>;
-    case 2:
-      return <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Expired</span>;
-    default:
-    return <i className="la la-times-circle text-danger" />;
-  }
-}
 
 class Pengajar extends React.Component {
   constructor(props){
@@ -54,11 +38,6 @@ class Pengajar extends React.Component {
     q['admin_id'] = this.addForm.querySelector('select[name="admin_id"]').value;
     q['kelas_id'] = this.addForm.querySelector('select[name="kelas_id"]').value;
     q['mapel_id'] = this.addForm.querySelector('select[name="mapel_id"]').value;
-    q['tgl_daftar'] = this.addForm.querySelector('input[name="tgl_daftar"]').value;
-    q['expired'] = this.addForm.querySelector('input[name="expired"]').value;
-    if (this.addForm.querySelector('input[name="status"]').checked) {
-      q['status'] = this.addForm.querySelector('input[name="status"]:checked').value;
-    }
     if (q.admin_id && q.kelas_id && q.mapel_id) {
       axios.post(con.api+'/pengajar/store', q, {headers:con.headers})
       .then(res => {
@@ -77,11 +56,6 @@ class Pengajar extends React.Component {
     q['admin_id'] = this.editForm.querySelector('select[name="admin_id"]').value;
     q['kelas_id'] = this.editForm.querySelector('select[name="kelas_id"]').value;
     q['mapel_id'] = this.editForm.querySelector('select[name="mapel_id"]').value;
-    q['tgl_daftar'] = this.editForm.querySelector('input[name="tgl_daftar"]').value;
-    q['expired'] = this.editForm.querySelector('input[name="expired"]').value;
-    if (this.editForm.querySelector('input[name="status"]').checked) {
-      q['status'] = this.editForm.querySelector('input[name="status"]:checked').value;
-    }
     if (q.admin_id && q.kelas_id && q.mapel_id) {
       axios.post(con.api+'/pengajar/update', q, {headers:con.headers})
       .then(res => {
@@ -120,27 +94,12 @@ class Pengajar extends React.Component {
   }
   render() {
     const ModalAdd = () => {
-      const [register, setRegister] = React.useState(moment().toDate());
-      const [expired, setExpired] = React.useState(moment().add(1, 'y').toDate());
       return (
         <form ref={i => this.addForm = i}>
           <div className="row">
             <Select name="admin_id" title="Pengajar" className="col-md mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" />
             <Select name="kelas_id" title="Kelas" className="col-md mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" />
             <Select name="mapel_id" title="Mata Pelajaran" className="col-md mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" />
-          </div>
-          <div className="row">
-            <div className="col-md mb-2">
-              <small className="text-nowrap">Tgl Daftar</small>
-              <DatePicker name="tgl_daftar" onChange={(i) => setRegister(i)} value={register} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
-            </div>
-            <div className="col-md mb-2">
-              <small className="text-nowrap">Tgl Habis Jabatan</small>
-              <DatePicker name="expired" onChange={(i) => setExpired(i)} value={expired} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
-            </div>
-            <div className="col-md mb-2">
-              <Checkbox name="status" id="status-add" value="1" title="Aktifkan" divClass="pt-4 text-right mt-1" rtl checked />
-            </div>
           </div>
           <hr className="row my-2"/>
           <div className="row">
@@ -152,27 +111,12 @@ class Pengajar extends React.Component {
       )
     }
     const ModalEdit = () => {
-      const [register, setRegister] = React.useState(moment(this.state.pengajar_self.tgl_daftar).toDate());
-      const [expired, setExpired] = React.useState(moment(this.state.pengajar_self.expired).toDate());
       return (
         <form ref={i => this.editForm = i}>
           <div className="row">
             <Select name="admin_id" title="Pengajar" className="col-md mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" selected={[this.state.pengajar_self.admin.admin_id, this.state.pengajar_self.admin.nama]} />
             <Select name="kelas_id" title="Kelas" className="col-md mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" selected={[this.state.pengajar_self.kelas.kelas_id, this.state.pengajar_self.kelas.nama]} />
             <Select name="mapel_id" title="Mata Pelajaran" className="col-md mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" selected={[this.state.pengajar_self.mapel.mapel_id, this.state.pengajar_self.mapel.nama]} />
-          </div>
-          <div className="row">
-            <div className="col-md mb-2">
-              <small className="text-nowrap">Tgl Daftar</small>
-              <DatePicker name="tgl_daftar" onChange={(i) => setRegister(i)} value={register} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
-            </div>
-            <div className="col-md mb-2">
-              <small className="text-nowrap">Tgl Habis Jabatan</small>
-              <DatePicker name="expired" onChange={(i) => setExpired(i)} value={expired} format="dd-MM-yyyy" className="bg-light d-block" calendarClassName="border-0 radius-10 shadow p-2" locale="id" clearIcon={null} calendarIcon={<i className="la la-calendar-alt text-primary la-2x"></i>} />
-            </div>
-            <div className="col-md mb-2">
-              <Checkbox name="status" id="status-edit" value="1" title="Aktifkan" divClass="pt-4 text-right mt-1" rtl checked={this.state.pengajar_self.status} />
-            </div>
           </div>
           <hr className="row my-2"/>
           <div className="row">
@@ -207,7 +151,7 @@ class Pengajar extends React.Component {
     if (this.state.loading) {
       return (
         <div className="row">
-          <div className="col-md-10 offset-md-1">
+          <div className="col-md-8 offset-md-2">
             <div className="card bg-transparent no-b">
               <div className="card-body p-0">
                 <Skeleton width="100%" height="75px" widthRandomness={0} />
@@ -220,7 +164,7 @@ class Pengajar extends React.Component {
     }
     return (
       <div className="row">
-        <div className="col-md-10 offset-md-1">
+        <div className="col-md-8 offset-md-2">
           <Notif close duration="5000" bg={this.state.notifBg} v="bottom" h="center" message={this.state.notifMsg} />
           <div className="card no-b shadow-lg radius-10">
             <div className="card-header bg-white b-0 px-3 py-2">
@@ -245,9 +189,7 @@ class Pengajar extends React.Component {
                         <th className="text-center sticky bg-white shadow-xs">No.</th>
                         <th className="sticky bg-white shadow-xs">Pengajar</th>
                         <th className="sticky bg-white shadow-xs">Kelas</th>
-                        <th className="sticky bg-white shadow-xs">Mata Pelajaran</th>
-                        <th className="sticky bg-white shadow-xs">Masa Jabatan</th>
-                        <th className="sticky bg-white shadow-xs" colSpan={2}>Status</th>
+                        <th className="sticky bg-white shadow-xs" colSpan={2}>Mata Pelajaran</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -259,10 +201,6 @@ class Pengajar extends React.Component {
                               <td className="bold text-capitalize">{r.admin.nama}</td>
                               <td className="bold">{r.kelas.nama}</td>
                               <td className="bold">{r.mapel.nama}</td>
-                              <td className="bold text-capitalize">
-                                { moment(r.expired).isAfter() ? moment(r.expired).fromNow(true) + ' Lagi' : <span className="badge badge-danger-light border border-danger f-8 bolder py-1 px-2 badge-pill">Habis</span> }
-                              </td>
-                              <td className="bold">{ moment(r.expired).isAfter() ? <Status value={r.status} /> : <Status value={2} /> }</td>
                               <td className="text-right">
                                 <span className="btn-fab btn-fab-xs btn-warning-light mr-2" data-toggle="modal" data-target="#edit-mdl" onClick={() => this.setState({pengajar_self:r})}><i className="la la-pen"></i></span>
                                 <span className="btn-fab btn-fab-xs btn-danger-light" data-toggle="modal" data-target="#delete-mdl" onClick={() => this.setState({pengajar_self:r})}><i className="la la-trash"></i></span>

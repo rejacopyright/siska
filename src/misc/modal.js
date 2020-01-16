@@ -2,7 +2,7 @@ import React from 'react';
 export default class Modal extends React.Component {
   render() {
     return (
-      <div className="modal fade" id={this.props.id} role="dialog">
+      <div className="modal fade" id={this.props.id} role="dialog" style={{top:'unset'}}>
         <div className={"modal-dialog d-flex align-items-center min-vh-90 modal-"+ this.props.size} >
           <div className="modal-content shadow no-b">
             <div className="modal-header py-2 bg-light">
