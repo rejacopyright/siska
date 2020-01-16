@@ -5,7 +5,7 @@ import moment from 'moment';
 import 'moment/locale/id';
 import Skeleton from 'react-skeleton-loader'
 import Checkbox from '../misc/checkbox';
-import { MDBTimePicker, MDBCol } from "mdbreact";
+import { TimeInput } from 'material-ui-time-picker';
 import Random from 'randomstring';
 class Jadwal extends React.Component {
   constructor(props){
@@ -18,16 +18,21 @@ class Jadwal extends React.Component {
       jadwal_self:{kelas:{},hari:{},mapel:{}},
       fLoading:true,
       cLoading:true,
-      mapel:[]
+      mapel:[],
+      time:new Date()
     }
   }
   componentDidMount() {
+    console.log(new Date(), moment().format());
     this._isMounted = true;
     document.title = 'Jadwal';
-    this._isMounted && axios.get(con.api+'/test/jadwal/', {headers:con.headers, params:{page:this.state.jadwal_page}}).then(res => {
+    this._isMounted && axios.get(con.api+'/jadwal', {headers:con.headers, params:{page:this.state.jadwal_page}}).then(res => {
       console.log(res.data);
       this.setState({ jadwal:res.data.jadwal, fLoading:false, cLoading:false });
     });
+  }
+  handleTime(i){
+    this._isMounted && this.setState({ time:i });
   }
   render () {
     return(
@@ -50,7 +55,10 @@ class Jadwal extends React.Component {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col">OKetsasas</div>
+                    <div className="col">
+                      testssdsdsd
+                      <TimeInput mode='12h' value={this.state.time} onChange={(i) => this.handleTime(i)} />
+                    </div>
                   </div>
                 </div>
               </div>
