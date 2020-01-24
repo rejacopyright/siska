@@ -97,9 +97,9 @@ class Pengajar extends React.Component {
       return (
         <form ref={i => this.addForm = i}>
           <div className="row">
-            <Select name="admin_id" title="Pengajar" className="col-md mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" />
-            <Select name="kelas_id" title="Kelas" className="col-md mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" />
-            <Select name="mapel_id" title="Mata Pelajaran" className="col-md mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" />
+            <Select name="admin_id" title="Pengajar" className="col-12 mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" />
+            <Select name="kelas_id" title="Kelas" className="col-12 mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" />
+            <Select name="mapel_id" title="Mata Pelajaran" className="col-12 mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" />
           </div>
           <hr className="row my-2"/>
           <div className="row">
@@ -114,9 +114,9 @@ class Pengajar extends React.Component {
       return (
         <form ref={i => this.editForm = i}>
           <div className="row">
-            <Select name="admin_id" title="Pengajar" className="col-md mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" selected={[this.state.pengajar_self.admin.admin_id, this.state.pengajar_self.admin.nama]} />
-            <Select name="kelas_id" title="Kelas" className="col-md mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" selected={[this.state.pengajar_self.kelas.kelas_id, this.state.pengajar_self.kelas.nama]} />
-            <Select name="mapel_id" title="Mata Pelajaran" className="col-md mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" selected={[this.state.pengajar_self.mapel.mapel_id, this.state.pengajar_self.mapel.nama]} />
+            <Select name="admin_id" title="Pengajar" className="col-12 mb-2" error="*Pengajar harus di isi" url='sdm/user/select' placeholder="Pilih Pengajar" selected={[this.state.pengajar_self.admin.admin_id, this.state.pengajar_self.admin.nama]} />
+            <Select name="kelas_id" title="Kelas" className="col-12 mb-2" error="*Kelas harus di isi" url='kelas/select' placeholder="Pilih Kelas" selected={[this.state.pengajar_self.kelas.kelas_id, this.state.pengajar_self.kelas.nama]} />
+            <Select name="mapel_id" title="Mata Pelajaran" className="col-12 mb-2" error="*Mata Pelajaran harus di isi" url='kurikulum/mapel/select' placeholder="Pilih Mata Pelajaran" selected={[this.state.pengajar_self.mapel.mapel_id, this.state.pengajar_self.mapel.nama]} />
           </div>
           <hr className="row my-2"/>
           <div className="row">
@@ -215,8 +215,8 @@ class Pengajar extends React.Component {
               </div>
             </div>
           </div>
-          <Modal id='tambah-mdl' size='lg' title='Tambah Pengajar' body={<ModalAdd />} />
-          <Modal id='edit-mdl' size='lg' title='Edit Pengajar' body={<ModalEdit />} />
+          <Modal id='tambah-mdl' size='md' title='Tambah Pengajar' body={<ModalAdd />} />
+          <Modal id='edit-mdl' size='md' title='Edit Pengajar' body={<ModalEdit />} />
           <Modal id='delete-mdl' size='md' title='Hapus Pengajar' body={<ModalDelete />} />
         </div>
       </div>

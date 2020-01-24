@@ -1,0 +1,33 @@
+KEUANGAN :
+Berdasarkan Siswa dan berdasarkan Jenis
+
+- SPP
+- Uang Gedung
+- Tabungan Karya Wisata
+- Uang Buku
+- Uang Seragam
+- STUDY TOUR
+- Biaya Praktikum
+- Kesiswaan
+- Tabungan Siswa
+- Ekstrakurikuler
+- Daftar Ulang
+- Uang SPP
+- Pendaftaran Siswa Baru (PPDB)
+
+INFORMASI
+- Buku Tamu
+- Berita Sekolah
+- Pengumuman
+- Surat Masuk / Keluar
+- Kelulusan
+
+INVENTARIS
+
+NILAI :
+- Hasil Ujian
+- Raport
+
+UKS :
+- Data obat
+- Pemeriksaan

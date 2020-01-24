@@ -1,40 +1,60 @@
 import React from 'react'
+import JadwalDetail from './jadwal-detail';
 import axios from 'axios';
 import con from '../api/connection';
 import moment from 'moment';
 import 'moment/locale/id';
-import Skeleton from 'react-skeleton-loader'
-import Checkbox from '../misc/checkbox';
-import { TimeInput } from 'material-ui-time-picker';
-import Random from 'randomstring';
+import Slider from "react-slick";
+import "../assets/css/slick/slick.scss";
+import Skeleton from 'react-skeleton-loader';
+import Select from '../misc/select';
 class Jadwal extends React.Component {
   constructor(props){
     super(props);
     this._isMounted = false;
     this.state = {
       jadwal:[],
-      jadwal_page:1,
-      jadwal_search:'',
-      jadwal_self:{kelas:{},hari:{},mapel:{}},
+      kelas:{},
+      hari:[],
+      selectedDay:{},
       fLoading:true,
-      cLoading:true,
-      mapel:[],
-      time:new Date()
+      hLoading:true,
+      mapel:[]
     }
   }
   componentDidMount() {
-    console.log(new Date(), moment().format());
+    // console.log(new Date(Math.ceil(newValue.getTime() / (1000*60*5)) * (1000*60*5)));
     this._isMounted = true;
     document.title = 'Jadwal';
-    this._isMounted && axios.get(con.api+'/jadwal', {headers:con.headers, params:{page:this.state.jadwal_page}}).then(res => {
-      console.log(res.data);
-      this.setState({ jadwal:res.data.jadwal, fLoading:false, cLoading:false });
-    });
+     if (this._isMounted) {
+       axios.get(con.api+'/mapel/jadwal', {headers:con.headers}).then(res => {
+         this.setState({
+           jadwal:res.data.jadwal,
+           hari:res.data.hari,
+           selectedDay:res.data.firstDay,
+           kelas:res.data.firstKelas,
+           fLoading:false,
+           hLoading:false
+         });
+       });
+     }
   }
-  handleTime(i){
-    this._isMounted && this.setState({ time:i });
+  onChange(i){
+    if (this._isMounted) {
+      axios.get(con.api+'/kelas/detail/'+i, {headers:con.headers, params:{page:this.state.jadwal_page}}).then(res => {
+        this.setState({ kelas:res.data.kelas });
+      });
+    }
+  }
+  toggleDay(hari_id, libur) {
+    if (this._isMounted && !libur) {
+      axios.get(con.api+'/hari/'+hari_id, {headers:con.headers}).then(res => {
+        this.setState({ selectedDay: res.data });
+      });
+    }
   }
   render () {
+    const settings = { dots: false, infinite: false, speed: 500, slidesToShow: 5, slidesToScroll: 2, responsive: [ {breakpoint:900,settings:{slidesToShow:2}}, {breakpoint:480,settings:{slidesToShow:2}} ] }
     return(
       <div className="row">
         {
@@ -50,78 +70,42 @@ class Jadwal extends React.Component {
                 <div className="p-3 bg-light border-bottom f-10 text-dark bolder text-left"><i className="la la-user la-lg mx-2" />Filter Berdasarkan</div>
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md mb-2">
-                      <Checkbox name="status" id="status" value="1" title="Aktifkan" className="mr-2" divClass="" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
-                      testssdsdsd
-                      <TimeInput mode='12h' value={this.state.time} onChange={(i) => this.handleTime(i)} />
-                    </div>
+                    <Select name="kelas_id" title="Pilih Kelas" className="col-12 mb-2" url='kelas/select' placeholder="Pilih Kelas" selected={[this.state.kelas.kelas_id, this.state.kelas.nama]} onChange={(i) => this.onChange(i)} />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         }
-        {
-          this.state.cLoading ?
-          <div className="col-md-9">
-            <div className="row">
-              <div className="col-md-6 mb-4"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> <Skeleton width="100%" height="15px" borderRadius="10px" widthRandomness={0.5} count={5} /> </div>
-              <div className="col-md-6 mb-4"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> <Skeleton width="100%" height="15px" borderRadius="10px" widthRandomness={0.5} count={5} /> </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6 mb-4"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> <Skeleton width="100%" height="15px" borderRadius="10px" widthRandomness={0.5} count={5} /> </div>
-              <div className="col-md-6 mb-4"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> <Skeleton width="100%" height="15px" borderRadius="10px" widthRandomness={0.5} count={5} /> </div>
-            </div>
-          </div>
-          :
-          <div className="col-md-9">
-            <div className="row">
-              {
-                this.state.jadwal.map((r, index) => (
-                  <div className="col-md-6 mb-3" key={index}>
-                    <div className="card h-100 no-b shadow-xs">
-                      <div className="card-body pb-4">
-                        <div className="d-flex align-items-center">
-                          <div className="mr-2">
-                            <img src={con.img+'/user/thumb/'+(r.pengajar && r.pengajar.avatar ? r.pengajar.avatar : '../../user.png')+'?'+Random.generate()} alt="img" className="user_avatar_xs"/>
-                          </div>
-                          <div className="">
-                            <p className="m-0 f-10 bolder text-info">{r.pengajar.nama}</p>
-                            <p className="m-0 f-9 bolder badge badge-light py-1">{r.mapel}</p>
-                          </div>
-                          <div className="ml-auto text-right">
-                            <p className="m-0 f-9 bolder badge badge-light py-1 text-capitalize">{r.semester}</p>
-                          </div>
-                        </div>
-                        <table className="mt-3">
-                          <tbody>
-                            <tr>
-                              <td className="lh-1 align-top"><span className="m-0 f-8 bolder badge badge-info-light py-1 mr-2">SK</span></td>
-                              <td className="lh-1"><span className="f-8 bolder">{r.sk}</span></td>
-                            </tr>
-                            <tr>
-                              <td className="lh-1 align-top"><span className="m-0 f-8 bolder badge badge-warning-light py-1 mr-2">KD</span></td>
-                              <td className="lh-1"><span className="f-8 bolder">{r.kd}</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <p className="mt-3 f-11 lh-15 bolder"> {r.nama} </p>
-                        <div className="position-absolute d-flex align-items-center w-100 b-0 r-0 mb-2">
-                          <p className="mb-0 f-8 text-info bolder ml-3 mr-auto">{moment(r.created_at).format('DD MMM YYYY')}</p>
-                          <p className="m-0 f-8 bolder badge badge-success-light py-1 mr-2">Selsai</p>
+        <div className="col-md-9">
+          <div className="row sticky bg-white" style={{top:'2.75rem'}}>
+            {
+              this.state.hLoading ?
+              <React.Fragment>
+                <div className="col pr-1 mb-3"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> </div>
+                <div className="col px-1 mb-3"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> </div>
+                <div className="col px-1 mb-3"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> </div>
+                <div className="col pl-1 mb-3"> <Skeleton width="100%" height="50px" borderRadius="10px" widthRandomness={0} /> </div>
+              </React.Fragment>
+              :
+              <div className="col mt-1">
+                <Slider {...settings}>
+                  {
+                    this.state.hari.map((r, index) => (
+                      <div key={index} className={`card radius-5 mb-3 no-drag ${this.state.selectedDay.hari_id === r.hari_id && !r.libur ? 'bg-info-light text-info border border-info' : 'text-dark'}`} onClick={(i) => this.toggleDay(r.hari_id, r.libur)}>
+                        <div className="card-body p-2 d-flex align-items-center">
+                          <div><p className="m-0 bolder">{r.nama}</p><p className="m-0 f-9">{moment(r.created_at).format('H:mm:ss')}</p></div>
+                          <div className="ml-auto"><i className={`text text-${r.libur ? 'danger' : 'info'} la la-${r.libur ? 'times' : 'check-circle'}`}></i></div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
+                    ))
+                  }
+                </Slider>
+              </div>
+            }
           </div>
-        }
+          <JadwalDetail kelas={this.state.kelas} hari={this.state.selectedDay} />
+        </div>
       </div>
     )
   }

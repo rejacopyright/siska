@@ -687,3 +687,42 @@ p.hover:hover{
     // fill: #fff !important;
   }
 }
+// MATERIAL DATE PICKER
+.MuiInputBase-input{
+  background: $light !important;
+  border-radius: 5px !important;
+  padding: .5rem !important;
+  cursor: pointer !important;
+  font-size: 11pt !important;
+}
+.MuiPopover-paper{
+  transform: scale(.8) !important;
+}
+.MuiInputBase-root, .MuiTypography-body1{
+  font: inherit !important;
+  font-weight: 500 !important;
+}
+.MuiPickersClockPointer-pointer, .MuiPickersClock-pin, .MuiPickersClockPointer-noPoint {
+  background: $primary !important;
+}
+.MuiPickersClockPointer-thumb{
+  border-color: $primary !important;
+}
+.MuiPickersClock-clock{
+  background: $light !important;
+}
+.MuiInput-underline:before, .MuiInput-underline:after{
+  content: unset !important
+}
+.MuiPaper-elevation8{
+  @extend .shadow-md;
+}
+.MuiPickersBasePicker-container{
+  align-items: center;
+}
+.MuiPickersToolbar-toolbar{
+  width: 100%;
+}
+.MuiPickersStaticWrapper-staticWrapperRoot{
+  min-width: unset;
+}

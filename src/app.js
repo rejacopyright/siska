@@ -78,7 +78,7 @@ class App extends React.Component {
               <Route exact path="/sdm/user" component={User} />
               {/* MAPEL */}
               <Route exact path="/mapel/pengajar" component={Pengajar} />
-              <Route exact path="/mapel/jadwal" component={Jadwal} />
+              <Route path="/mapel/jadwal" component={Jadwal} />
               {/* PERPUSTAKAAN */}
               <Route exact path="/perpustakaan/kategori" component={PerpusKategori} />
               <Route exact path="/perpustakaan/koleksi" component={PerpusKoleksi} />
