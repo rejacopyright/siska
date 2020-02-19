@@ -64,7 +64,12 @@ class Login extends React.Component {
                 <span className="f-16 text-primary mr-1">SISKA</span>
                 <span className="f-10"> | Login</span>
               </div>
-              <p className="mt-0 lh-1"> Sistem Informasi Sekolah </p>
+              <p className="mt-0 lh-1 bolder"> Sistem Informasi Sekolah </p>
+              <div className="alert alert-info py-1 mb-2">
+                <p className="my-0 lh-1 bolder f-10"> Demo </p>
+                <div className="row mt-0"> <div className="col text-right pr-0 f-10">Username</div> <div className="col text-left pl-1 f-10 bolder">: admin</div> </div>
+                <div className="row mt-0"> <div className="col text-right pr-0 f-10">Password</div> <div className="col text-left pl-1 f-10 bolder">: admin</div> </div>
+              </div>
             </div>
             <form>
               <Loading />

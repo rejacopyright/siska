@@ -37,6 +37,8 @@ import User from './sdm/user';
 // MODUL MAPEL
 import Pengajar from './mapel/pengajar';
 import Jadwal from './mapel/jadwal';
+// MODUL KEUANGAN
+import Spp from './keuangan/spp';
 // MODUL SETTINGS
 import Kelas from './kelas/kelas';
 import Semester from './semester/semester';
@@ -86,6 +88,8 @@ class App extends React.Component {
               <Route exact path="/perpustakaan/pengaturan" component={PerpusSetting} />
               <Route exact path="/perpustakaan" component={Perpus} />
               <Route exact path="/perpustakaan/pinjam" component={PerpusPinjam} />
+              {/* KEUANGAN */}
+              <Route exact path="/keuangan/spp" component={Spp} />
               {/* SETTINGS */}
               <Route exact path="/sdm/kelas" component={Kelas} />
               <Route exact path="/semester" component={Semester} />
