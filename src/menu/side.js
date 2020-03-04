@@ -94,6 +94,7 @@ class side extends React.Component {
             <div className="sidebar-title f-8 bold text-white p-2 position-relative pointer" data-toggle="collapse" href="#keuangan-header" aria-expanded="false"><i className="la la-wallet la-lg pr-2" />KEUANGAN <i className="la la-angle-right right right-5 toggle-1" /></div>
             <ul className="sidebar-menu collapse" id="keuangan-header">
               <li><Link to="/keuangan/spp"><i className="la la-calendar text-white la-lg" />SPP</Link> </li>
+              <li><Link to="/keuangan/pengaturan"><i className="la la-cog text-white la-lg" />Pengaturan</Link> </li>
             </ul>
             {/* PENGATURAN */}
             <div className="sidebar-title f-8 bold text-white p-2 position-relative pointer" data-toggle="collapse" href="#pengaturan-header" aria-expanded="false"><i className="la la-cog la-lg pr-2" />PENGATURAN <i className="la la-angle-right right right-5 toggle-1" /></div>

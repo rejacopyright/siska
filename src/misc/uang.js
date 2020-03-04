@@ -3,7 +3,7 @@ class Uang extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value:this.props.value || '',
+      value:(this.props.value || 0).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'),
       error:this.props.value ? '' : this.props.error
     }
   }
@@ -33,7 +33,7 @@ class Uang extends React.Component {
               <span>{this.props.iconText}</span>
               : <i className='la la-search' />
             }
-            <input onChange={this.value.bind(this)} value={this.state.value} type="text" name={this.props.name} className="form-control form-control-sm radius-5 bg-light" autoComplete="off" />
+            <input onChange={this.value.bind(this)} value={this.state.value} type="text" name={this.props.name} className={`form-control form-control-sm radius-5 bg-light ${this.props.className}`} autoComplete="off" readOnly={this.props.readOnly} />
           </div>
         <sup className="text-success f-8">{this.props.note}</sup>
       </div>
